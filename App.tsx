@@ -119,9 +119,9 @@ const App: React.FC = () => {
                 <textarea
                   id="topic"
                   rows={4}
-                  className={`w-full rounded-xl shadow-sm text-slate-900 resize-none p-3 border transition-all ${
+                  className={`w-full rounded-xl shadow-sm text-slate-900 resize-none p-3 border transition-all bg-white ${
                     isOverLimit
-                      ? 'border-red-300 focus:border-red-500 focus:ring-red-500 bg-red-50'
+                      ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
                       : isNearLimit
                       ? 'border-orange-300 focus:border-orange-500 focus:ring-orange-500'
                       : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500'
@@ -134,7 +134,11 @@ const App: React.FC = () => {
                   isOverLimit ? 'text-red-600' : isNearLimit ? 'text-orange-600' : 'text-slate-400'
                 }`}>
                   {isOverLimit && <AlertCircle className="w-3 h-3" />}
-                  <span>{currentLength} / {maxLength}</span>
+                  <span>
+                    {isOverLimit 
+                      ? `${Math.abs(charsRemaining)} characters over limit` 
+                      : `${charsRemaining} characters remaining`}
+                  </span>
                 </div>
               </div>
 
@@ -167,7 +171,7 @@ const App: React.FC = () => {
                 <input
                   type="text"
                   id="audience"
-                  className="w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-slate-900 p-2.5 border"
+                  className="w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-slate-900 p-2.5 border bg-white"
                   placeholder="e.g. UX Designers, Small Business Owners..."
                   value={audience}
                   onChange={(e) => setAudience(e.target.value)}
